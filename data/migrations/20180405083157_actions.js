@@ -13,7 +13,7 @@ exports.up = function(knex) {
 
         actions.string("description", 128).notNullable();
         actions.text("notes").notNullable();
-        actions.boolean("completed").defaultTo(false);
+        actions.boolean("completed").defaultTo();
     });
 };
 

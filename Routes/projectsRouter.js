@@ -67,19 +67,41 @@ router.get("/:id/actions", projectExists, (req, res) => {
     });
 });
 
-
 //POST REQUESTS
 
 //POST to /api/projects CREATING a new project
-router.post("/",  (req, res) => {
-    Projects.insert(req.body)
-      .then(project => {
-        res.status(201).json(project);
-      })
-      .catch(err => {
-        res.status(500).json({ errorMessage: "Could not add project" });
+router.post("/", (req, res) => {
+  Projects.insert(req.body)
+    .then(project => {
+      res.status(201).json(project);
+    })
+    .catch(err => {
+      res.status(500).json({ errorMessage: "Could not add project" });
+    });
+});
+
+//DELETE REQUESTS
+
+router.delete("/:id", (req, res) => {
+  Projects.remove(req.params.id)
+    .then(project => {
+      if (project == 1) {
+        res.status(200).json({
+          message: `Project ${req.params.id} was successfully deleted`,
+          deletedID: parseInt(req.params.id)
+        });
+      } else {
+        res.status(500).json({
+          errorMessage: "This project does not exist"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({
+        errorMessage: "Could not remove project"
       });
-  });
+    });
+});
 //custom middleware
 
 function projectExists(req, res, next) {

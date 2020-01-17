@@ -102,6 +102,22 @@ router.delete("/:id", (req, res) => {
       });
     });
 });
+
+//PUT REQUESTS
+
+router.put("/:id",  (req, res) => {
+    Projects.update(req.params.id, req.body)
+      .then(project => {
+        res.status(200).json({
+          message: `Project ${req.params.id} was successfully updated`
+        });
+      })
+      .catch(err => {
+        res.status(500).json({
+          errorMessage: "There was an error updating the project"
+        });
+      });
+  });
 //custom middleware
 
 function projectExists(req, res, next) {

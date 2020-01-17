@@ -12,3 +12,9 @@ I need this code, but don't know where, perhaps should make some middleware, don
 
 Go code!
 */
+const server = require("./server.js");
+// this allows it to work on heroku or local machine
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () =>
+  console.log(`\n*** Server Listening on PORT:${PORT} ***\n`)
+);

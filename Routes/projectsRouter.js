@@ -67,6 +67,19 @@ router.get("/:id/actions", projectExists, (req, res) => {
     });
 });
 
+
+//POST REQUESTS
+
+//POST to /api/projects CREATING a new project
+router.post("/",  (req, res) => {
+    Projects.insert(req.body)
+      .then(project => {
+        res.status(201).json(project);
+      })
+      .catch(err => {
+        res.status(500).json({ errorMessage: "Could not add project" });
+      });
+  });
 //custom middleware
 
 function projectExists(req, res, next) {
